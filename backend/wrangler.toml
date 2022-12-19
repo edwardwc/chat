@@ -1,0 +1,9 @@
+name = "rizzle-chat"
+main = "src/index.js"
+compatibility_date = "2022-12-19"
+
+[[ d1_databases ]]
+binding = "COOL_DB"
+database_name = "rizzle-chat-preview"
+database_id = "4f054e75-b8df-40d1-a581-0532daae48ad"
+preview_database_id = "e904a758-09ec-46ba-8f56-7ac77940680b"

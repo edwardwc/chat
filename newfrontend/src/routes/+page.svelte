@@ -3,7 +3,7 @@
     import { fade } from "svelte/transition";
 
     let message = "Loading..."
-    let currentlySelected = "dark";
+    let currentlySelected = "luxury";
 
     onMount(async () => {
         const logElem = document.querySelector('#log')
@@ -16,12 +16,12 @@
         var socket = null
 
         function log(msg, sender, you) {
-            if (sender === "system") {
+            if (sender === "system" || sender === "update") {
                 logElem.innerHTML += `<p class="text-center">${msg}</p>`
             } else if (you) {
                 logElem.innerHTML += `
                 <div class="chat chat-end">
-                  ` + (!sentLastMessage.includes("you") ? `<div className="chat-header">${sender}</div>` : ``) + `
+                  ` + (!sentLastMessage.includes("you") ? `<div class="chat-header">${sender}</div>` : ``) + `
                   <div class="chat-bubble opacity-100 brightness-200" data-theme="${currentlySelected}">${msg}</div>
                 </div>
                 `
@@ -29,22 +29,19 @@
                 sentLastMessage = sender;
             } else {
                 logElem.innerHTML +=
-                    sentLastMessage === sender ? `
+                    `
                     <div class="chat chat-start max-w-screen-md lg:max-w-4xl pt-0">
+                       ` + (sentLastMessage !== sender ? `<div class="chat-header">${sender}</div>` : ``) + `
                        <div class="chat-bubble" data-theme="${currentlySelected}">${msg}</div>
                     </div>
-                    ` : `
-                <div class="chat chat-start max-w-screen-md lg:max-w-4xl">
-                       <div class="chat-header">${sender}</div>
-                       <div class="chat-bubble" data-theme="${currentlySelected}">${msg}</div>
-                </div>`
+                `
                 sentLastMessage = sender;
             }
             logElem.scrollTop += 1000
         }
 
         (() => {
-            const wsUri = `wss://rizzle.chat/ws/`
+            const wsUri = `wss://rizzle-chat.edwardwc.workers.dev/ws/`
 
             log('Connecting...', 'system', false)
             socket = new WebSocket(wsUri)
@@ -58,8 +55,6 @@
                 const data = JSON.parse(ev.data)
                 if (data.Sender.includes("(you)")) {
                     log(data.Message, data.Sender, true);
-                } else if (data.Sender === "update") {
-                    clientsElem.innerHTML = data.Message
                 } else {
                     log(data.Message, data.Sender, false)
                 }
@@ -121,15 +116,15 @@
                 <div class="dropdown dropdown-top dropdown-end">
                     <label tabindex="0" class="btn m-1" data-theme="{currentlySelected}">Style</label>
                     <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                        <li data-theme="cyberpunk" on:click={() => {
-                    currentlySelected = "cyberpunk"
-                }}><a>Cyberpunk</a></li>
-                        <li data-theme="dark" on:click={() => {
-                    currentlySelected = "dark"
-                }}><a>Dark</a></li>
                         <li data-theme="luxury" on:click={() => {
-                    currentlySelected = "luxury"
-                }}><a>Luxury</a></li>
+                            currentlySelected = "luxury"
+                        }}><a>Luxury</a></li>
+                        <li data-theme="dark" on:click={() => {
+                            currentlySelected = "dark"
+                        }}><a>Dark</a></li>
+                        <li data-theme="cyberpunk" on:click={() => {
+                            currentlySelected = "cyberpunk"
+                        }}><a>Cyberpunk</a></li>
                     </ul>
                 </div>
             </form>

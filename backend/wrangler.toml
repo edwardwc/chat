@@ -1,6 +1,17 @@
 name = "rizzle-chat"
-main = "src/index.js"
+main = "src/index.mjs"
 compatibility_date = "2022-12-19"
+
+
+[durable_objects]
+bindings = [
+  { name = "ROOMS", class_name = "Chatroom" }
+]
+
+[[migrations]]
+tag = "v1" # Should be unique for each entry
+new_classes = ["Chatroom"]
+
 
 [[ d1_databases ]]
 binding = "COOL_DB"

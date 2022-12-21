@@ -4,13 +4,16 @@
 
     let message = "Loading..."
     let currentlySelected = "luxury";
+    let someoneElseTyping = false;
 
     onMount(async () => {
         const logElem = document.querySelector('#log')
         let typing = false;
         let name = "";
+        let currentlyTyping = []; // list of clients who are currently typing
         let sentLastMessage = "cyberpunk"; // this is so we can clump messages together
         const formElem = document.querySelector('#chatform')
+        const typingElem = document.querySelector('#typing')
         const inputElem = document.querySelector('#text')
 
         /** @type {WebSocket | null} */
@@ -41,6 +44,27 @@
             logElem.scrollTop += 1000
         }
 
+        const checkEntries = async () => { // this checks typing entries to make sure they haven't expired
+            while (true) {
+                currentlyTyping = currentlyTyping.filter(typer => typer.expiryTime > Date.now())
+                if (currentlyTyping.length === 1) {
+                    typingElem.innerHTML = currentlyTyping[0].name + " is typing..."
+                } else if (currentlyTyping.length > 1 && currentlyTyping.length <= 4) {
+                    let fullString = "";
+                    for (let i = 0; i < currentlyTyping.length-1; i++) { // do all except the last element
+                        fullString += (currentlyTyping[i].name + ", ")
+                    }
+                    fullString += ("and " + currentlyTyping[currentlyTyping.length-1].name + " are typing...")
+                    typingElem.innerHTML = fullString;
+                } else if (currentlyTyping.length > 4) {
+                    typingElem.innerHTML = "Multiple users are typing";
+                } else {
+                    typingElem.innerHTML = ""
+                }
+                await new Promise(r => setTimeout(r, 1000)); // check every 10ms
+            }
+        }
+
         (() => {
             const wsUri = `wss://api.rizzle.chat/ws/`
 
@@ -57,7 +81,24 @@
                 if (data.Sender === "update") {
                     if (data.Type === "name") {
                         name = data.Message;
-                        console.log(name)
+                    }
+                    if (data.Type === "typing") {
+                        if (data.Message !== name) { // make sure the alert isn't for us
+                            // first, we check if it's already here. if it is, we update the expiry time
+                            // if not, we add it with an expiry time 5 seconds from now
+                            for (let i = 0; i < currentlyTyping.length; i++) {
+                                if (data.Message === currentlyTyping[i].name) {
+                                    currentlyTyping[i].expiryTime = Date.now() + 5000; // add 5k milliseconds to the timeout
+                                    return
+                                }
+                            }
+
+                            // if not, let's make a new obj and push it
+                            currentlyTyping.push({
+                                name: data.Message, // name of the typer
+                                expiryTime: Date.now() + 5000, // the time this typing will end!
+                            })
+                        }
                     }
                 } else {
                     log(data.Message, data.Sender, (data.Sender === name));
@@ -69,7 +110,6 @@
                 socket = null
             }
         })()
-
 
         formElem.addEventListener('submit', (ev) => {
             ev.preventDefault()
@@ -83,22 +123,18 @@
         })
 
         inputElem.addEventListener('keyup', async () => {
-            console.log("hello")
             if (!typing) {
                 typing = true
-                console.log("sending typing...")
                 await sendTypingIndicator()
-                console.log("not sending typing...")
                 typing = false
             }
         })
 
         const sendTypingIndicator = async () => {
-            console.log("real send...")
             socket.send("/typing")
-            console.log("sent")
             await new Promise(r => setTimeout(r, 4000));
         }
+        await checkEntries()
     })
 
 </script>
@@ -128,7 +164,7 @@
         <div class={"mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 border-solid border-2 border-sky-500 rounded-lg" +
          " opacity-90 py-10 bg-gray-800"} style={"height: 60vh;"}>
             <div class="mx-auto" style={"height: 48vh;"} id="log"></div>
-            <p class="text-center bottom-0 insert-y-0 pt-2 text-gray-500" id="typing">bigballs and mcplayer are typing...</p>
+            <p class="text-center bottom-0 insert-y-0 pt-2 text-gray-500" id="typing"></p>
         </div>
         <div>
             <form id="chatform" class="text-right px-24 py-2" autocomplete="off">

@@ -49,7 +49,7 @@
                 currentlyTyping = currentlyTyping.filter(typer => typer.expiryTime > Date.now())
                 if (currentlyTyping.length === 1) {
                     typingElem.innerHTML = currentlyTyping[0].name + " is typing..."
-                } else if (currentlyTyping.length > 1 && currentlyTyping.length <= 4) {
+                } else if (currentlyTyping.length > 1 && currentlyTyping.length <= 4) { // TODO: refactor this for better english
                     let fullString = "";
                     for (let i = 0; i < currentlyTyping.length-1; i++) { // do all except the last element
                         fullString += (currentlyTyping[i].name + ", ")
@@ -61,7 +61,7 @@
                 } else {
                     typingElem.innerHTML = ""
                 }
-                await new Promise(r => setTimeout(r, 1000)); // check every 10ms
+                await new Promise(r => setTimeout(r, 50)); // check every 50ms
             }
         }
 

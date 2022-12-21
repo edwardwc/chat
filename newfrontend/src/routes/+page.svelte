@@ -7,10 +7,11 @@
 
     onMount(async () => {
         const logElem = document.querySelector('#log')
+        let typing = false;
+        let name = "";
         let sentLastMessage = "cyberpunk"; // this is so we can clump messages together
         const formElem = document.querySelector('#chatform')
         const inputElem = document.querySelector('#text')
-        const clientsElem = document.querySelector('#clients')
 
         /** @type {WebSocket | null} */
         var socket = null
@@ -21,7 +22,7 @@
             } else if (you) {
                 logElem.innerHTML += `
                 <div class="chat chat-end">
-                  ` + (!sentLastMessage.includes("you") ? `<div class="chat-header">${sender}</div>` : ``) + `
+                  ` + (sentLastMessage !== name ? `<div class="chat-header">${sender}</div>` : ``) + `
                   <div class="chat-bubble opacity-100 brightness-200" data-theme="${currentlySelected}">${msg}</div>
                 </div>
                 `
@@ -53,10 +54,13 @@
 
             socket.onmessage = (ev) => {
                 const data = JSON.parse(ev.data)
-                if (data.Sender.includes("(you)")) {
-                    log(data.Message, data.Sender, true);
+                if (data.Sender === "update") {
+                    if (data.Type === "name") {
+                        name = data.Message;
+                        console.log(name)
+                    }
                 } else {
-                    log(data.Message, data.Sender, false)
+                    log(data.Message, data.Sender, (data.Sender === name));
                 }
             }
 
@@ -77,6 +81,24 @@
             inputElem.value = ''
             inputElem.focus()
         })
+
+        inputElem.addEventListener('keyup', async () => {
+            console.log("hello")
+            if (!typing) {
+                typing = true
+                console.log("sending typing...")
+                await sendTypingIndicator()
+                console.log("not sending typing...")
+                typing = false
+            }
+        })
+
+        const sendTypingIndicator = async () => {
+            console.log("real send...")
+            socket.send("/typing")
+            console.log("sent")
+            await new Promise(r => setTimeout(r, 4000));
+        }
     })
 
 </script>

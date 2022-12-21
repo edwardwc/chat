@@ -1,10 +1,6 @@
 name = "rizzle-chat"
 main = "src/index.mjs"
 compatibility_date = "2022-12-19"
-routes = [
-    { pattern = "api.rizzle.chat", zone_id = "1bf0d9961c6468511433e715395edd30" }
-]
-
 
 [durable_objects]
 bindings = [

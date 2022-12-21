@@ -51,15 +51,17 @@ export class Chatroom {
     async handleSession(ws, name) {
         ws.accept();
 
-        ws.send(updateMessage(``))
+        ws.send(updateMessage("name", name))
         this.broadcast(systemMessage(`New user ${name} has joined! There are now ${this.sessions.length} users in this chat.`))
 
         ws.addEventListener("message", async msg => {
             try {
                 if (msg.data) { // make sure the message actually exists
                     if (msg.data.charAt(0) === "/") { // it is a command
-                        if (msg.data.includes("count")) {
-                            ws.send(updateMessage(this.sessions.length))
+                        if (msg.data.includes("typing")) { // the user is typing
+                            this.broadcast(updateMessage("typing", name))
+                        } else if (msg.data.includes("count")) {
+                            ws.send(updateMessage("count", this.sessions.length))
                         } else if (msg.data.includes("users")) {
                             let totalStr = "";
                             for (let i = 0; i < this.sessions.length; i++) {
@@ -69,18 +71,11 @@ export class Chatroom {
                                     totalStr += (this.sessions[i].name + ", ")
                                 }
                             }
-                            ws.send(updateMessage(totalStr))
+                            ws.send(updateMessage("users", totalStr))
                         }
                     } else {
                         const userMessage = regularMessage(name, msg.data)
-                        for (let i = 0; i < this.sessions.length; i++) {
-                            if (this.sessions[i].name === name) { // TODO: have the client remember their name
-                                // hate having to do it this way
-                                this.sessions[i].server.send(regularMessage((name + " (you)"), msg.data))
-                            } else {
-                                this.sessions[i].server.send(userMessage)
-                            }
-                        }
+                        this.broadcast(userMessage)
                     }
                 }
             } catch (err) {

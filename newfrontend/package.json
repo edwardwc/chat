@@ -39,6 +39,7 @@
 		"daisyui": "^2.45.0",
 		"emoji-picker-element": "^1.14.1",
 		"picmo": "^5.7.2",
-		"svelte-emoji-picker": "^1.1.2"
+		"svelte-emoji-picker": "^1.1.2",
+		"xss": "^1.0.14"
 	}
 }

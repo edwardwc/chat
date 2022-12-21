@@ -102,7 +102,9 @@
                     }
                 } else {
                     currentlyTyping = currentlyTyping.filter(typer => typer.name !== data.Sender)
-                    log(data.Message, data.Sender, (data.Sender === name));
+                    data.Message = data.Message.replaceAll("<", "")
+                    data.Message = data.Message.replaceAll(">", "")
+                    log(escape(data.Message), data.Sender, (data.Sender === name));
                 }
             }
 

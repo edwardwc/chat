@@ -41,7 +41,7 @@
         }
 
         (() => {
-            const wsUri = `wss://rizzle-chat.edwardwc.workers.dev/ws/`
+            const wsUri = `wss://api.rizzle.chat/ws/`
 
             log('Connecting...', 'system', false)
             socket = new WebSocket(wsUri)

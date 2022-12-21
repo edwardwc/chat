@@ -104,18 +104,20 @@
     </div>
     <div class="lg:hover:blur-none">
         <div class={"mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 border-solid border-2 border-sky-500 rounded-lg" +
-         " opacity-90 py-10 bg-gray-800"} style={"height: 50vh;"} id="log">
+         " opacity-90 py-10 bg-gray-800"} style={"height: 60vh;"}>
+            <div class="mx-auto" style={"height: 48vh;"} id="log"></div>
+            <p class="text-center bottom-0 insert-y-0 pt-2 text-gray-500" id="typing">bigballs and mcplayer are typing...</p>
         </div>
         <div>
             <form id="chatform" class="text-right px-24 py-2" autocomplete="off">
                 <input type="text" class={`input input-bordered w-full max-w-xs m-1 ` + (currentlySelected === "cyberpunk" ? `bg-gray-700 text-yellow-400` : ``)}
                        data-theme="{currentlySelected}" id="text" autofocus required/>
-                <button type="submit" data-theme="{currentlySelected}" class="btn btn-success px-10" id="send">
+                <button type="submit" data-theme="{currentlySelected}" class="btn btn-success lg:px-10" id="send">
                     Send
                 </button>
                 <div class="dropdown dropdown-top dropdown-end">
                     <label tabindex="0" class="btn m-1" data-theme="{currentlySelected}">Style</label>
-                    <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                    <ul tabindex="0" class="dropdown-content menu shadow bg-base-100 rounded-box w-52">
                         <li data-theme="luxury" on:click={() => {
                             currentlySelected = "luxury"
                         }}><a>Luxury</a></li>

@@ -1,6 +1,7 @@
-export const updateMessage = (message) => { // sender system
+export const updateMessage = (type, message) => { // sender system
     return JSON.stringify({
         Sender: "update",
+        Type: type,
         Message: message,
         Timestamp: Date.now()
     })

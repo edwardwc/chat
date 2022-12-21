@@ -51,6 +51,7 @@ export class Chatroom {
     async handleSession(ws, name) {
         ws.accept();
 
+        ws.send(updateMessage(``))
         this.broadcast(systemMessage(`New user ${name} has joined! There are now ${this.sessions.length} users in this chat.`))
 
         ws.addEventListener("message", async msg => {
@@ -99,7 +100,7 @@ export class Chatroom {
     }
 
     broadcast(message) {
-        for (let i = 0; i < this.sessions.length; i++) {
+        for (let i = 0; i < this.sessions.length; i++) { // TODO: needs to flag when shit doesnt work like its supposed to
             this.sessions[i].server.send(message)
         }
     }

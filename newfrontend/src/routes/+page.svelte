@@ -85,7 +85,7 @@
         overflow: auto;
     }
 </style>
-<html>
+<html data-theme="dark">
     <div class={"py-5 text-center"}>
         <p transition:fade class={"lg:text-8xl text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-indigo-500" +
                       " via-purple-500 to-pink-500"}>

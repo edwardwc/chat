@@ -101,6 +101,7 @@
                         }
                     }
                 } else {
+                    currentlyTyping = currentlyTyping.filter(typer => typer.name !== name)
                     log(data.Message, data.Sender, (data.Sender === name));
                 }
             }

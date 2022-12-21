@@ -102,8 +102,7 @@
                     }
                 } else {
                     currentlyTyping = currentlyTyping.filter(typer => typer.name !== data.Sender)
-                    data.Message = data.Message.replaceAll("<", "")
-                    data.Message = data.Message.replaceAll(">", "")
+                    data.Message = data.Message.replaceAll(/[^\w. ]/gi, (c) => {return `&#${c.charCodeAt(0)};`})
                     log(data.Message, data.Sender, (data.Sender === name));
                 }
             }

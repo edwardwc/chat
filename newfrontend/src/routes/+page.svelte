@@ -102,8 +102,7 @@
                     }
                 } else {
                     currentlyTyping = currentlyTyping.filter(typer => typer.name !== data.Sender)
-                    data.Message = data.Message.replaceAll(/[^\w. ]/gi, (c) => {return `&#${c.charCodeAt(0)};`})
-                    log(data.Message, data.Sender, (data.Sender === name));
+                    log(data.Message.replaceAll(/[^\w. ]/gi, (c) => {return `&#${c.charCodeAt(0)};`}), data.Sender, (data.Sender === name));
                 }
             }
 
@@ -170,7 +169,7 @@
         </div>
         <div>
             <form id="chatform" class="text-right px-24 py-2" autocomplete="off">
-                <input type="text" class={`input input-bordered w-full max-w-xs m-1 ` + (currentlySelected === "cyberpunk" ? `bg-gray-700 text-yellow-400` : ``)}
+                <input type="text" class={`input input-bordered w-full max-w-xs m-1 px-4` + (currentlySelected === "cyberpunk" ? `bg-gray-700 text-yellow-400` : ``)}
                        data-theme="{currentlySelected}" id="text" autofocus required/>
                 <button type="submit" data-theme="{currentlySelected}" class="btn btn-success lg:px-10" id="send">
                     Send

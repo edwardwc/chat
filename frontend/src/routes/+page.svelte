@@ -150,7 +150,7 @@
                       " via-purple-500 to-pink-500"}>
             rizzle.chat
         </p>
-        <p class={"px-5 text-sm lg:text-xl"}>Encryption at top secret levels with no storage. Not even the operators of this website can see what you send.</p>
+        <p class={"px-5 text-sm lg:text-xl"}>Chat freely: there's no logging of what is said</p>
         <!-- underlined text soonland
             <button type="button"
             className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-2 py-1.5 lg:px-3

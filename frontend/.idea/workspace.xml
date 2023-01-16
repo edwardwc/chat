@@ -1,22 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0083997f-be7e-49e5-93d4-ac5218f32b35" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../backend/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../newfrontend/src/routes/+page.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/../newfrontend/src/routes/+page.svelte" afterDir="false" />
+    <list default="true" id="72d6017a-ebac-4ba8-b871-25817e9cb041" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../encryption-testing/test128.js" beforeDir="false" afterPath="$PROJECT_DIR$/../encryption-testing/test128.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="+layout" />
+        <option value="ws" />
+        <option value="emoji" />
+        <option value="+test" />
+        <option value="test123" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2J8p40Qo6X2RFMmNfdxDk9Ef1I8" />
+  <component name="ProjectId" id="2J8vDp79uePHXPcJw7mJLnsUR6P" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -27,23 +37,31 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/bigballs/rizzle/frontend&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/bigballs/rizzle/newfrontend&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/Users/bigballs/rizzle/newfrontend/node_modules/prettier&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/routes/about" />
+      <recent name="$PROJECT_DIR$/src/lib" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="0083997f-be7e-49e5-93d4-ac5218f32b35" name="Changes" comment="" />
-      <created>1671469370055</created>
+      <changelist id="72d6017a-ebac-4ba8-b871-25817e9cb041" name="Changes" comment="" />
+      <created>1671472407340</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1671469370055</updated>
-      <workItem from="1671469371691" duration="3028000" />
-      <workItem from="1671472418932" duration="2035000" />
+      <updated>1671472407340</updated>
+      <workItem from="1671472408547" duration="5622000" />
+      <workItem from="1671545558693" duration="29434000" />
+      <workItem from="1672465966979" duration="775000" />
     </task>
     <servers />
   </component>
